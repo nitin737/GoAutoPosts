@@ -1,0 +1,14 @@
+🚀 Go Library of the Day: {{ .Library.Name }}
+
+{{ .Library.Description }}
+
+🔗 {{ .Library.URL }}
+
+{{ if .Library.Author }}👨‍💻 By: {{ .Library.Author }}{{ end }}
+{{ if .Library.Category }}📂 Category: {{ .Library.Category }}{{ end }}
+{{ if .Library.Stars }}⭐ Stars: {{ .Library.Stars }}{{ end }}
+
+{{ range .Hashtags }}#{{ . }} {{ end }}
+
+---
+Follow for daily Go library recommendations! 💙

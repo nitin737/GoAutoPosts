@@ -1,0 +1,14 @@
+[
+  {
+    "library": {
+      "name": "lgo",
+      "description": "Interactive Go programming with Jupyter",
+      "url": "https://github.com/yunabe/lgo",
+      "category": "Interactive Go",
+      "tags": ["go", "golang", "jupyter", "notebook", "repl"],
+      "stars": 2457,
+      "author": "yunabe"
+    },
+    "posted_at": "2026-01-16T20:11:27+05:30"
+  }
+]
