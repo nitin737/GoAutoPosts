@@ -1,5 +1,6 @@
 # Binaries for programs and plugins
 bin/
+bin/publisher
 *.exe
 *.exe~
 *.dll
