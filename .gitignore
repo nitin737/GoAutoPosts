@@ -1,4 +1,4 @@
-# Binaries
+# Binaries for programs and plugins
 bin/
 *.exe
 *.exe~
@@ -6,33 +6,48 @@ bin/
 *.so
 *.dylib
 
-# Test binary
+# Test binary, built with `go test -c`
 *.test
 
-# Output of the go coverage tool
+# Output of the go coverage tool, specifically when used with Litmus
 *.out
 
-# Dependency directories
-vendor/
+# Dependency directories (remove the comment below to include it)
+# vendor/
 
 # Go workspace file
 go.work
+go.work.sum
 
-# Environment variables
+# Environment variables / Secret files
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+credentials.json
 
-# IDE
+# IDE / Editor specific
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.elixir_ls/
+.direnv/
 
-# OS
+# OS specific files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Generated images
+# Generated project-specific content
+# Generated images (all PNGs except base asset)
 *.png
 !internal/image/assets/base.png
 
@@ -40,6 +55,17 @@ Thumbs.db
 *.db
 *.sqlite
 *.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
 
-# Logs
+# Logs and profiling data
 *.log
+*.prof
+cpu.pprof
+mem.pprof
+
+# Build artifacts
+obj/
+pkg/
+dist/
