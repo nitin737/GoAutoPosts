@@ -70,3 +70,4 @@ mem.pprof
 obj/
 pkg/
 dist/
+tmp/

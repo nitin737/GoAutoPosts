@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  publisher:
+    build: .
+    image: goautoposts:latest
+    container_name: goautoposts
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./tmp:/tmp
+    environment:
+      - ENVIRONMENT=production
+      - NGROK_ENABLED=true
+      - DRY_RUN=true # Set to false to actually publish post
+    ports:
+      - "8080:8080"
+    restart: no
+    depends_on:
+      - ngrok
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok-tunnel
+    # Command to forward traffic to publisher service on port 8080
+    command: http publisher:8080
+    environment:
+      # NGROK_AUTHTOKEN must be set in .env
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040" # Dashboard/API port
+    restart: on-failure

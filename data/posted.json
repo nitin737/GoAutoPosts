@@ -5,10 +5,71 @@
       "description": "Interactive Go programming with Jupyter",
       "url": "https://github.com/yunabe/lgo",
       "category": "Interactive Go",
-      "tags": ["go", "golang", "jupyter", "notebook", "repl"],
+      "tags": [
+        "go",
+        "golang",
+        "jupyter",
+        "notebook",
+        "repl"
+      ],
       "stars": 2457,
       "author": "yunabe"
     },
     "posted_at": "2026-01-16T20:11:27+05:30"
+  },
+  {
+    "library": {
+      "name": "cobra",
+      "description": "A Commander for modern Go CLI interactions",
+      "url": "https://github.com/spf13/cobra",
+      "category": "CLI",
+      "tags": [
+        "cli",
+        "command-line",
+        "terminal"
+      ],
+      "stars": 35000,
+      "author": "spf13"
+    },
+    "posted_at": "2026-01-16T17:46:45.880933634Z",
+    "post_id": "18095859749507468",
+    "image_path": "/tmp/go-daily-cobra-1768585560/cobra_slide_1.png"
+  },
+  {
+    "library": {
+      "name": "viper",
+      "description": "Go configuration with fangs",
+      "url": "https://github.com/spf13/viper",
+      "category": "Configuration",
+      "tags": [
+        "config",
+        "configuration",
+        "settings"
+      ],
+      "stars": 25000,
+      "author": "spf13"
+    },
+    "posted_at": "2026-01-16T17:57:02.415208252Z",
+    "post_id": "dry_run_carousel_id",
+    "image_path": "/tmp/go-daily-viper-1768586222/viper_slide_1.png"
+  },
+  {
+    "library": {
+      "name": "gin",
+      "description": "Fast HTTP web framework written in Go",
+      "url": "https://github.com/gin-gonic/gin",
+      "category": "Web Framework",
+      "tags": [
+        "web",
+        "http",
+        "framework",
+        "api"
+      ],
+      "stars": 75000,
+      "author": "gin-gonic"
+    },
+    "posted_at": "2026-01-16T18:04:39.227357339Z",
+    "post_id": "dry_run_carousel_id",
+    "image_path": "/tmp/go-daily-gin-1768586678/gin_slide_1.png"
   }
 ]

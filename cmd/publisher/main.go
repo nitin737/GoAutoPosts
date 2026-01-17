@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/nitin737/GoAutoPosts/internal/config"
@@ -47,6 +49,18 @@ func main() {
 	publisher := instagram.NewPublisher(instagramClient)
 	store := store.NewJSONStore(cfg.PostedPath)
 
+	// Start local file server to serve images
+	if cfg.PublicURL != "" {
+		go func() {
+			logger.Info("Starting local file server", "port", cfg.ServerPort, "dir", "/tmp")
+			if err := http.ListenAndServe(":"+cfg.ServerPort, http.FileServer(http.Dir("/tmp"))); err != nil {
+				logger.Error("Local file server failed", "error", err)
+			}
+		}()
+	} else {
+		logger.Warn("PUBLIC_URL is not set. Instagram publishing will fail for carousel items.")
+	}
+
 	// Step 1: Select a random library
 	logger.Info("Selecting random library...")
 	library, err := selector.SelectRandom()
@@ -78,11 +92,27 @@ func main() {
 		logger.Error("Failed to generate carousel", "error", err)
 		os.Exit(1)
 	}
-	logger.Info("Carousel generated", "count", len(imagePaths), "dir", outputDir)
+	logger.Info("Carousel generated", "count", len(imagePaths), "dir", outputDir, "paths", imagePaths)
 
 	// Step 5: Publish to Instagram
 	logger.Info("Publishing to Instagram...")
-	postID, err := publisher.PublishCarousel(imagePaths, caption)
+
+	// Convert local paths to public URLs
+	var imageURLs []string
+	for _, path := range imagePaths {
+		if cfg.PublicURL != "" {
+			// Assuming path starts with /tmp/
+			relPath := strings.TrimPrefix(path, "/tmp/")
+			// Ensure we don't need double slashes
+			relPath = strings.TrimPrefix(relPath, "/")
+			url := fmt.Sprintf("%s/%s", strings.TrimRight(cfg.PublicURL, "/"), relPath)
+			imageURLs = append(imageURLs, url)
+		} else {
+			imageURLs = append(imageURLs, path)
+		}
+	}
+
+	postID, err := publisher.PublishCarousel(imageURLs, caption)
 	if err != nil {
 		logger.Error("Failed to publish to Instagram", "error", err)
 		os.Exit(1)

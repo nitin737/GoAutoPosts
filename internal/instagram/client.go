@@ -99,44 +99,16 @@ func (c *Client) UploadImage(imagePath string) (string, error) {
 	return uploadResp.ID, nil
 }
 
-// UploadCarouselImage uploads an image to Instagram as a carousel item
-func (c *Client) UploadCarouselImage(imagePath string) (string, error) {
-	file, err := os.Open(imagePath)
-	if err != nil {
-		return "", fmt.Errorf("failed to open image: %w", err)
-	}
-	defer file.Close()
-
-	body := &bytes.Buffer{}
-	writer := multipart.NewWriter(body)
-
-	part, err := writer.CreateFormFile("image", imagePath)
-	if err != nil {
-		return "", err
-	}
-
-	if _, err := io.Copy(part, file); err != nil {
-		return "", err
-	}
-
-	if err := writer.Close(); err != nil {
-		return "", err
-	}
-
-	// Use url.Values for safe parameter encoding
+// CreateCarouselItem creates a carousel item container from a public image URL
+func (c *Client) CreateCarouselItem(imageURL string) (string, error) {
 	params := url.Values{}
 	params.Set("is_carousel_item", "true")
+	params.Set("image_url", imageURL)
 	params.Set("access_token", c.accessToken)
 
 	u := fmt.Sprintf("%s/%s/media?%s", c.graphAPIURL, c.accountID, params.Encode())
-	req, err := http.NewRequest("POST", u, body)
-	if err != nil {
-		return "", err
-	}
 
-	req.Header.Set("Content-Type", writer.FormDataContentType())
-
-	resp, err := c.httpClient.Do(req)
+	resp, err := c.httpClient.Post(u, "application/json", nil)
 	if err != nil {
 		return "", err
 	}
@@ -144,7 +116,7 @@ func (c *Client) UploadCarouselImage(imagePath string) (string, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return "", fmt.Errorf("upload carousel item failed (status %d): %s", resp.StatusCode, string(bodyBytes))
+		return "", fmt.Errorf("create carousel item failed (status %d): %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	var uploadResp UploadImageResponse

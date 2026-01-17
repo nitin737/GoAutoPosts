@@ -15,12 +15,25 @@ const (
 
 // Colors
 var (
-	ColorBackgroundStart = HexToColor("#1a1a1a") // Example Dark Theme
-	ColorBackgroundEnd   = HexToColor("#2d2d2d")
-	ColorTextPrimary     = HexToColor("#ffffff")
-	ColorTextSecondary   = HexToColor("#a0a0a0")
-	ColorAccent          = HexToColor("#00ADD8") // Go Blue
-	ColorCodeBackground  = HexToColor("#000000") // 80% opacity usually
+	// Modern Developer Dark Theme
+	ColorBackgroundStart = HexToColor("#0F172A") // Slate 900
+	ColorBackgroundEnd   = HexToColor("#1E293B") // Slate 800
+	ColorTextPrimary     = HexToColor("#F8FAFC") // Slate 50
+	ColorTextSecondary   = HexToColor("#94A3B8") // Slate 400
+	ColorAccent          = HexToColor("#38BDF8") // Sky 400
+
+	// Code Window Colors
+	ColorCodeBackground      = HexToColor("#1E1E1E") // VS Code Dark
+	ColorWindowControlRed    = HexToColor("#FF5F56")
+	ColorWindowControlYellow = HexToColor("#FFBD2E")
+	ColorWindowControlGreen  = HexToColor("#27C93F")
+
+	// Syntax Highlighting
+	ColorKeyword  = HexToColor("#C586C0") // Purple
+	ColorString   = HexToColor("#CE9178") // Orange/Brown
+	ColorComment  = HexToColor("#6A9955") // Green
+	ColorFunction = HexToColor("#DCDCAA") // Yellow
+	ColorNormal   = HexToColor("#D4D4D4") // Light Gray
 )
 
 // Typography

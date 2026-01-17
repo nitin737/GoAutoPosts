@@ -1,0 +1,10 @@
+.git
+.github
+.vscode
+bin
+tmp
+
+.env
+.DS_Store
+*.md
+Makefile

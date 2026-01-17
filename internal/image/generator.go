@@ -53,8 +53,11 @@ func (g *Generator) GenerateCarousel(lib *model.Library, outputDir string) ([]st
 		return nil, fmt.Errorf("failed to ensure output dir: %w", err)
 	}
 
-	for i, card := range cards {
-		img, err := g.engine.RenderCard(card)
+	for i := range cards {
+		cards[i].Index = i + 1
+		cards[i].TotalSlides = len(cards)
+
+		img, err := g.engine.RenderCard(cards[i])
 		if err != nil {
 			return nil, fmt.Errorf("failed to render card %d: %w", i, err)
 		}

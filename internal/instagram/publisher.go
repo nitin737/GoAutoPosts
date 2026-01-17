@@ -42,13 +42,13 @@ func (p *Publisher) PublishPost(imagePath, caption string) (string, error) {
 }
 
 // PublishCarousel publishes a carousel post to Instagram
-func (p *Publisher) PublishCarousel(imagePaths []string, caption string) (string, error) {
-	// Step 1: Upload all images as carousel items
+func (p *Publisher) PublishCarousel(imageURLs []string, caption string) (string, error) {
+	// Step 1: Create media containers for all carousel items
 	var childrenIDs []string
-	for _, path := range imagePaths {
-		id, err := p.client.UploadCarouselImage(path)
+	for _, rawURL := range imageURLs {
+		id, err := p.client.CreateCarouselItem(rawURL)
 		if err != nil {
-			return "", fmt.Errorf("failed to upload carousel item %s: %w", path, err)
+			return "", fmt.Errorf("failed to create carousel item %s: %w", rawURL, err)
 		}
 		childrenIDs = append(childrenIDs, id)
 	}

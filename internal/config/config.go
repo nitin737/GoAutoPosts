@@ -23,6 +23,10 @@ type Config struct {
 
 	// Environment
 	Environment string
+
+	// Local Server
+	PublicURL  string
+	ServerPort string
 }
 
 // Load reads configuration from environment variables
@@ -38,6 +42,8 @@ func Load() (*Config, error) {
 		PostedPath:           getEnvOrDefault("POSTED_PATH", "data/posted.json"),
 		ImageBasePath:        getEnvOrDefault("IMAGE_BASE_PATH", "internal/image/assets/base.png"),
 		Environment:          getEnvOrDefault("ENVIRONMENT", "development"),
+		PublicURL:            os.Getenv("PUBLIC_URL"),
+		ServerPort:           getEnvOrDefault("SERVER_PORT", "8080"),
 	}
 
 	// Validate required fields
@@ -56,4 +62,12 @@ func getEnvOrDefault(key, defaultValue string) string {
 		return value
 	}
 	return defaultValue
+}
+
+func getEnvAsBool(key string, defaultValue bool) bool {
+	valStr := os.Getenv(key)
+	if valStr == "" {
+		return defaultValue
+	}
+	return valStr == "true" || valStr == "1"
 }
